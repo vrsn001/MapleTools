@@ -3,6 +3,11 @@
   "type": "module",
   "version": "2024.10.22-7ca5933",
   "packageManager": "pnpm@9.11.0",
+  "pnpm": {
+    "overrides": {
+      "@vueuse/shared": "10.3.0"
+    }
+  },
   "description": "Maple Tools — 70+ privacy-friendly developer utilities (fork of IT Tools).",
   "author": "Corentin Th <corentin.thomasset74+it-tools@gmail.com> (https://corentin.tech)",
   "license": "GNU GPLv3",
@@ -52,6 +57,7 @@
     "@vueuse/core": "^10.3.0",
     "@vueuse/head": "^1.0.0",
     "@vueuse/router": "^10.0.0",
+    "@vueuse/shared": "10.3.0",
     "bcryptjs": "^2.4.3",
     "change-case": "^4.1.2",
     "colord": "^2.9.3",
