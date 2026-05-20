@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     '404.page': typeof import('./src/pages/404.page.vue')['default']
     About: typeof import('./src/pages/About.vue')['default']
+    AnimatedListVue: typeof import('./src/components/AnimatedListVue.vue')['default']
     App: typeof import('./src/App.vue')['default']
     AsciiTextDrawer: typeof import('./src/tools/ascii-text-drawer/ascii-text-drawer.vue')['default']
     'Base.layout': typeof import('./src/layouts/base.layout.vue')['default']
@@ -143,6 +144,9 @@ declare module 'vue' {
     PhoneParserAndFormatter: typeof import('./src/tools/phone-parser-and-formatter/phone-parser-and-formatter.vue')['default']
     QrCodeGenerator: typeof import('./src/tools/qr-code-generator/qr-code-generator.vue')['default']
     RandomPortGenerator: typeof import('./src/tools/random-port-generator/random-port-generator.vue')['default']
+    ReactAnimatedListMount: typeof import('./src/components/ReactAnimatedListMount.vue')['default']
+    ReactAuroraMount: typeof import('./src/components/ReactAuroraMount.vue')['default']
+    ReactPixelCardMount: typeof import('./src/components/ReactPixelCardMount.vue')['default']
     RegexMemo: typeof import('./src/tools/regex-memo/regex-memo.vue')['default']
     'RegexMemo.content': typeof import('./src/tools/regex-memo/regex-memo.content.md')['default']
     RegexTester: typeof import('./src/tools/regex-tester/regex-tester.vue')['default']
