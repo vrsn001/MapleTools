@@ -49,4 +49,13 @@ const siderPosition = computed(() => (isSmallScreen.value ? 'absolute' : 'static
 .n-layout {
   height: 100vh;
 }
+
+::v-deep(.n-layout-sider) {
+  background: var(--maple-surface) !important;
+  border-right: 1px solid var(--maple-border) !important;
+}
+
+::v-deep(.n-layout-sider-scroll-container) {
+  background: var(--maple-surface);
+}
 </style>

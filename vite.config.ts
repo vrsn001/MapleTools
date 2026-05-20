@@ -14,9 +14,15 @@ import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import markdown from 'vite-plugin-vue-markdown';
 import svgLoader from 'vite-svg-loader';
-import { configDefaults } from 'vitest/config';
-
 const baseUrl = process.env.BASE_URL ?? '/';
+
+const vitestExclude = [
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/cypress/**',
+  '**/.{idea,git,cache,output,temp}/**',
+  '**/*.e2e.spec.ts',
+];
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -108,7 +114,7 @@ export default defineConfig({
     'import.meta.env.PACKAGE_VERSION': JSON.stringify(process.env.npm_package_version),
   },
   test: {
-    exclude: [...configDefaults.exclude, '**/*.e2e.spec.ts'],
+    exclude: vitestExclude,
   },
   build: {
     target: 'esnext',

@@ -37,3 +37,16 @@ body {
   color: var(--maple-text);
   background-color: var(--maple-background);
 }
+
+::selection {
+  background: var(--maple-primary-faded);
+  color: var(--maple-text);
+}
+
+a {
+  color: var(--maple-primary);
+}
+
+a:hover {
+  color: var(--maple-primary-hover);
+}
