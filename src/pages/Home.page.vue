@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconDragDrop, IconHeart } from '@tabler/icons-vue';
+import { IconDragDrop, IconHeart, IconTools } from '@tabler/icons-vue';
 import { useHead } from '@vueuse/head';
 import { computed } from 'vue';
 import Draggable from 'vuedraggable';
@@ -10,22 +10,39 @@ import { config } from '@/config';
 
 const toolStore = useToolStore();
 
-useHead({ title: 'IT Tools - Handy online tools for developers' });
+useHead({ title: 'Maple Tools — Handy online tools for developers' });
 const { t } = useI18n();
 
 const favoriteTools = computed(() => toolStore.favoriteTools);
+const toolCount = computed(() => toolStore.tools.length);
+const categoryCount = computed(() => toolStore.toolsByCategory.length);
 
-// Update favorite tools order when drag is finished
 function onUpdateFavoriteTools() {
-  toolStore.updateFavoriteTools(favoriteTools.value); // Update the store with the new order
+  toolStore.updateFavoriteTools(favoriteTools.value);
 }
 </script>
 
 <template>
-  <div class="pt-50px">
-    <div class="grid-wrapper">
-      <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
-        <ColoredCard v-if="config.showBanner" :title="$t('home.follow.title')" :icon="IconHeart">
+  <div class="home-page">
+    <section class="home-hero">
+      <div class="home-hero-badge">
+        <n-icon :component="IconTools" size="16" />
+        <span>{{ toolCount }} tools · {{ categoryCount }} categories</span>
+      </div>
+      <h1 class="home-hero-title">
+        {{ $t('home.hero.title') }}
+      </h1>
+      <p class="home-hero-subtitle">
+        {{ $t('home.hero.description') }}
+      </p>
+      <div class="home-hero-search">
+        <command-palette />
+      </div>
+    </section>
+
+    <div class="home-content">
+      <div v-if="config.showBanner" class="home-banner">
+        <ColoredCard :title="$t('home.follow.title')" :icon="IconHeart">
           {{ $t('home.follow.p1') }}
           <a
             href="https://github.com/CorentinTh/it-tools"
@@ -46,16 +63,16 @@ function onUpdateFavoriteTools() {
       </div>
 
       <transition name="height">
-        <div v-if="toolStore.favoriteTools.length > 0">
-          <h3 class="mb-5px mt-25px text-neutral-400 font-500">
+        <section v-if="toolStore.favoriteTools.length > 0" class="home-section">
+          <h2 class="section-heading">
             {{ $t('home.categories.favoriteTools') }}
             <c-tooltip :tooltip="$t('home.categories.favoritesDndToolTip')">
-              <n-icon :component="IconDragDrop" size="18" />
+              <n-icon :component="IconDragDrop" size="18" class="section-icon" />
             </c-tooltip>
-          </h3>
+          </h2>
           <Draggable
             :list="favoriteTools"
-            class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4"
+            class="tools-grid"
             ghost-class="ghost-favorites-draggable"
             item-key="name"
             @end="onUpdateFavoriteTools"
@@ -64,29 +81,132 @@ function onUpdateFavoriteTools() {
               <ToolCard :tool="tool" />
             </template>
           </Draggable>
-        </div>
+        </section>
       </transition>
 
-      <div v-if="toolStore.newTools.length > 0">
-        <h3 class="mb-5px mt-25px text-neutral-400 font-500">
+      <section v-if="toolStore.newTools.length > 0" class="home-section">
+        <h2 class="section-heading">
           {{ t('home.categories.newestTools') }}
-        </h3>
-        <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
+        </h2>
+        <div class="tools-grid">
           <ToolCard v-for="tool in toolStore.newTools" :key="tool.name" :tool="tool" />
         </div>
-      </div>
+      </section>
 
-      <h3 class="mb-5px mt-25px text-neutral-400 font-500">
-        {{ $t('home.categories.allTools') }}
-      </h3>
-      <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
-        <ToolCard v-for="tool in toolStore.tools" :key="tool.name" :tool="tool" />
-      </div>
+      <section
+        v-for="category in toolStore.toolsByCategory"
+        :key="category.name"
+        class="home-section"
+      >
+        <h2 class="section-heading">
+          {{ category.name }}
+          <span class="section-count">{{ category.components.length }}</span>
+        </h2>
+        <div class="tools-grid">
+          <ToolCard
+            v-for="tool in category.components"
+            :key="tool.path"
+            :tool="tool"
+          />
+        </div>
+      </section>
     </div>
   </div>
 </template>
 
 <style scoped lang="less">
+.home-page {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.home-hero {
+  text-align: center;
+  padding: 32px 16px 40px;
+  margin-bottom: 8px;
+}
+
+.home-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--maple-primary);
+  background: var(--maple-primary-faded);
+  margin-bottom: 20px;
+}
+
+.home-hero-title {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--maple-text);
+  line-height: 1.15;
+}
+
+.home-hero-subtitle {
+  margin: 0 auto 28px;
+  max-width: 520px;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--maple-text-muted);
+}
+
+.home-hero-search {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.home-content {
+  padding: 0 4px 48px;
+}
+
+.home-banner {
+  max-width: 420px;
+  margin-bottom: 8px;
+}
+
+.home-section {
+  margin-top: 36px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--maple-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.section-icon {
+  opacity: 0.6;
+}
+
+.section-count {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--maple-primary-faded);
+  color: var(--maple-primary);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
 .height-enter-active,
 .height-leave-active {
   transition: all 0.5s ease-in-out;
@@ -103,22 +223,9 @@ function onUpdateFavoriteTools() {
 }
 
 .ghost-favorites-draggable {
-  opacity: 0.4;
-  background-color: #ccc;
-  border: 2px dashed #666;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  transform: scale(1.1);
-  animation: ghost-favorites-draggable-animation 0.2s ease-out;
-}
-
-@keyframes ghost-favorites-draggable-animation {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  100% {
-    opacity: 0.4;
-    transform: scale(1.0);
-  }
+  opacity: 0.5;
+  border: 2px dashed var(--maple-primary) !important;
+  box-shadow: var(--maple-card-shadow-hover);
+  transform: scale(1.02);
 }
 </style>

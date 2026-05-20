@@ -10,7 +10,7 @@ import type { Tool } from '@/tools/tools.types';
 const route = useRoute();
 
 const head = computed<HeadObject>(() => ({
-  title: `${route.meta.name} - IT Tools`,
+  title: `${route.meta.name} - Maple Tools`,
   meta: [
     {
       name: 'description',
@@ -32,25 +32,17 @@ const toolDescription = computed<string>(() => t(`tools.${i18nKey.value}.descrip
 
 <template>
   <BaseLayout>
-    <div class="tool-layout">
-      <div class="tool-header">
-        <div flex flex-nowrap items-center justify-between>
-          <n-h1>
-            {{ toolTitle }}
-          </n-h1>
-
-          <div>
-            <FavoriteButton :tool="{ name: route.meta.name, path: route.path } as Tool" />
-          </div>
-        </div>
-
-        <div class="separator" />
-
-        <div class="description">
-          {{ toolDescription }}
-        </div>
+    <header class="tool-header">
+      <div class="tool-header-top">
+        <h1 class="tool-title">
+          {{ toolTitle }}
+        </h1>
+        <FavoriteButton :tool="{ name: route.meta.name, path: route.path } as Tool" />
       </div>
-    </div>
+      <p class="tool-description">
+        {{ toolDescription }}
+      </p>
+    </header>
 
     <div class="tool-content">
       <slot />
@@ -65,44 +57,43 @@ const toolDescription = computed<string>(() => t(`tools.${i18nKey.value}.descrip
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 20px;
 
   ::v-deep(& > *) {
     flex: 0 1 600px;
   }
 }
 
-.tool-layout {
-  max-width: 600px;
-  margin: 0 auto;
+.tool-header {
+  max-width: 640px;
+  margin: 0 auto 32px;
+  padding: 24px 0 0;
+  width: 100%;
   box-sizing: border-box;
+}
 
-  .tool-header {
-    padding: 40px 0;
-    width: 100%;
+.tool-header-top {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
 
-    .n-h1 {
-      opacity: 0.9;
-      font-size: 40px;
-      font-weight: 400;
-      margin: 0;
-      line-height: 1;
-    }
+.tool-title {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--maple-text);
+  line-height: 1.2;
+}
 
-    .separator {
-      width: 200px;
-      height: 2px;
-      background: rgb(161, 161, 161);
-      opacity: 0.2;
-
-      margin: 10px 0;
-    }
-
-    .description {
-      margin: 0;
-
-      opacity: 0.7;
-    }
-  }
+.tool-description {
+  margin: 12px 0 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--maple-text-muted);
+  max-width: 56ch;
 }
 </style>

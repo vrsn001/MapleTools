@@ -23,8 +23,10 @@ const theme = useTheme();
 .c-card {
   background-color: v-bind('theme.backgroundColor');
   border: 1px solid v-bind('theme.borderColor');
-  border-radius: 4px;
+  border-radius: var(--maple-radius);
   padding: 20px 24px;
+  box-shadow: var(--maple-card-shadow);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 
   &-title {
     font-size: 16px;

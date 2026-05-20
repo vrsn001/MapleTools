@@ -46,12 +46,11 @@ const themeVars = useThemeVars();
 
 <template>
   <div v-for="{ name, tools, isCollapsed } of menuOptions" :key="name">
-    <div ml-6px mt-12px flex cursor-pointer items-center op-60 @click="toggleCategoryCollapse({ name })">
-      <span :class="{ 'rotate-0': isCollapsed, 'rotate-90': !isCollapsed }" text-16px lh-1 op-50 transition-transform>
+    <div class="category-label" @click="toggleCategoryCollapse({ name })">
+      <span :class="{ 'rotate-0': isCollapsed, 'rotate-90': !isCollapsed }" class="category-chevron">
         <icon-mdi-chevron-right />
       </span>
-
-      <span ml-8px text-13px>
+      <span class="category-name">
         {{ name }}
       </span>
     </div>
@@ -75,6 +74,38 @@ const themeVars = useThemeVars();
 </template>
 
 <style scoped lang="less">
+.category-label {
+  display: flex;
+  align-items: center;
+  margin: 14px 6px 4px;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: 8px;
+  opacity: 0.75;
+  transition: opacity 0.15s, background 0.15s;
+
+  &:hover {
+    opacity: 1;
+    background: var(--maple-primary-faded);
+  }
+}
+
+.category-chevron {
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0.5;
+  transition: transform 0.2s;
+}
+
+.category-name {
+  margin-left: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--maple-text-muted);
+}
+
 .menu-wrapper {
   display: flex;
   flex-direction: row;

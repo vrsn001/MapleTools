@@ -1,4 +1,7 @@
 home:
+  hero:
+    title: 'Developer tools, one place'
+    description: 'Encode, convert, hash, format, and more — 70+ privacy-friendly tools that run in your browser.'
   categories:
     newestTools: Newest tools
     favoriteTools: 'Your favorite tools'

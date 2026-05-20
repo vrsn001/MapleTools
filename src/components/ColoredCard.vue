@@ -7,49 +7,55 @@ const { icon, title } = toRefs(props);
 
 <template>
   <c-card class="colored-card">
-    <n-icon class="icon" size="40" :component="icon" />
-    <n-h3 class="title">
-      <n-ellipsis>{{ title }}</n-ellipsis>
-    </n-h3>
-
-    <div class="description">
-      <n-ellipsis :line-clamp="2" :tooltip="false">
-        <slot />
-      </n-ellipsis>
+    <div class="colored-card-inner">
+      <n-icon class="icon" size="36" :component="icon" />
+      <h3 class="title">
+        <n-ellipsis>{{ title }}</n-ellipsis>
+      </h3>
+      <div class="description">
+        <n-ellipsis :line-clamp="3" :tooltip="false">
+          <slot />
+        </n-ellipsis>
+      </div>
     </div>
   </c-card>
 </template>
 
 <style lang="less" scoped>
 .colored-card {
-  background: rgb(37, 99, 108);
-  background: linear-gradient(48deg, rgba(37, 99, 108, 1) 0%, rgba(59, 149, 111, 1) 60%, rgba(20, 160, 88, 1) 100%);
+  background: linear-gradient(135deg, #9a3412 0%, #e85d04 45%, #f97316 100%);
   color: #fff;
-  border: none;
+  border: none !important;
+  box-shadow: 0 8px 32px rgba(232, 93, 4, 0.35) !important;
+
+  .colored-card-inner {
+    position: relative;
+  }
 
   .icon {
-    opacity: 0.7;
+    opacity: 0.9;
+    margin-bottom: 8px;
   }
 
   .title {
     color: #fff;
-
-    margin: 5px 0;
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 600;
   }
 
   .description {
-    opacity: 0.8;
-
-    margin: 5px 0;
+    opacity: 0.92;
+    font-size: 14px;
+    line-height: 1.5;
 
     ::v-deep(a) {
       color: inherit;
       text-decoration: underline;
-      font-weight: bold;
-      transition: color ease 0.2s;
+      font-weight: 600;
 
       &:hover {
-        color: rgb(20, 20, 20);
+        color: #fff7ed;
       }
     }
   }

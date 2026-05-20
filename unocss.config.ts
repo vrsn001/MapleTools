@@ -14,14 +14,23 @@ export default defineConfig({
   transformers: [transformerDirectives(), transformerVariantGroup()],
   theme: {
     colors: {
-      primary: '#1ea54c',
-
+      primary: '#e85d04',
+      maple: {
+        50: '#fff7ed',
+        100: '#ffedd5',
+        500: '#f97316',
+        600: '#e85d04',
+        700: '#c2410c',
+      },
     },
   },
   shortcuts: {
     'pretty-scrollbar': 'scrollbar scrollbar-rounded scrollbar-thumb-color-gray-300 scrollbar-track-color-gray-100 dark:scrollbar-thumb-color-#424242 dark:scrollbar-track-color-#686868',
     'divider': 'h-1px bg-current op-10',
-    'bg-surface': 'bg-#ffffff dark:bg-#232323',
-    'bg-background': 'bg-#f1f5f9 dark:bg-#1c1c1c',
+    'bg-surface': 'bg-[var(--maple-surface)]',
+    'bg-background': 'bg-[var(--maple-background)]',
+    'text-muted': 'text-[var(--maple-text-muted)]',
+    'shadow-card': 'shadow-[var(--maple-card-shadow)]',
+    'shadow-card-hover': 'shadow-[var(--maple-card-shadow-hover)]',
   },
 });

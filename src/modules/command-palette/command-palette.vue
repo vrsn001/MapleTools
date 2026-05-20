@@ -112,15 +112,13 @@ function activateOption(option: PaletteOption) {
 
 <template>
   <div flex-1>
-    <c-button w-full important:justify-start @click="isModalOpen = true">
-      <span flex items-center gap-3 op-40>
-
-        <icon-mdi-search />
-        {{ $t('search.label') }}
-
-        <span hidden flex-1 border border-current border-op-40 rounded border-solid px-5px py-3px sm:inline>
-          {{ isMac ? 'Cmd' : 'Ctrl' }}&nbsp;+&nbsp;K
-        </span>
+    <c-button class="search-trigger" w-full important:justify-start @click="isModalOpen = true">
+      <span class="search-trigger-inner">
+        <icon-mdi-search class="search-icon" />
+        <span class="search-label">{{ $t('search.label') }}</span>
+        <kbd class="search-kbd">
+          {{ isMac ? '⌘' : 'Ctrl' }} K
+        </kbd>
       </span>
     </c-button>
 
@@ -138,6 +136,55 @@ function activateOption(option: PaletteOption) {
 </template>
 
 <style scoped lang="less">
+.search-trigger {
+  border: 1px solid var(--maple-border) !important;
+  background: var(--maple-surface) !important;
+  border-radius: var(--maple-radius) !important;
+  height: 42px;
+  box-shadow: var(--maple-card-shadow);
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    border-color: var(--maple-primary) !important;
+    box-shadow: var(--maple-card-shadow-hover);
+  }
+}
+
+.search-trigger-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  color: var(--maple-text-muted);
+  font-size: 14px;
+}
+
+.search-icon {
+  opacity: 0.7;
+  font-size: 18px;
+}
+
+.search-label {
+  flex: 1;
+  text-align: left;
+}
+
+.search-kbd {
+  display: none;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-family: inherit;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid var(--maple-border);
+  background: var(--maple-background);
+  color: var(--maple-text-muted);
+
+  @media (min-width: 640px) {
+    display: inline-block;
+  }
+}
+
 .c-input-text {
   font-size: 18px;
 

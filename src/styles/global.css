@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  --maple-primary: #e85d04;
+  --maple-primary-hover: #f97316;
+  --maple-primary-pressed: #c2410c;
+  --maple-primary-faded: #e85d0426;
+  --maple-surface: #ffffff;
+  --maple-background: #f4f6f9;
+  --maple-text: #1a1d26;
+  --maple-text-muted: #64748b;
+  --maple-border: #e2e8f0;
+  --maple-card-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 4px 12px rgba(15, 23, 42, 0.04);
+  --maple-card-shadow-hover: 0 8px 24px rgba(232, 93, 4, 0.12), 0 2px 8px rgba(15, 23, 42, 0.06);
+  --maple-radius: 12px;
+  --maple-radius-lg: 16px;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+html.dark {
+  --maple-surface: #1c1f28;
+  --maple-background: #0f1117;
+  --maple-text: #f1f5f9;
+  --maple-text-muted: #94a3b8;
+  --maple-border: #2d3348;
+  --maple-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --maple-card-shadow-hover: 0 8px 24px rgba(232, 93, 4, 0.15);
+}
+
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  color: var(--maple-text);
+  background-color: var(--maple-background);
+}
